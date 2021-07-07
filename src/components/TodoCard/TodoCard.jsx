@@ -19,7 +19,7 @@ export default function TodoCard({ todo }) {
 				</Card.Header>
 				<Card.Body>
 					<Card.Title>{todo.title}</Card.Title>
-					<Card.Text>{todo.body}</Card.Text>
+					<Card.Text className="todo__body">{todo.body}</Card.Text>
 					<Card.Link href="#">Read more...</Card.Link>
 				</Card.Body>
 			</Card>

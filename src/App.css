@@ -1,3 +1,11 @@
 .todo__column {
 	gap: 20px;
 }
+.todo__body {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	min-height: 72px;
+}
