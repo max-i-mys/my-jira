@@ -18,3 +18,6 @@ crud.interceptors.response.use(
 export async function getTodos() {
 	return await crud.get()
 }
+export async function addTodo(data) {
+	return await crud.post("", data)
+}
