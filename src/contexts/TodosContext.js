@@ -20,7 +20,10 @@ export default function TodosProvider({ children }) {
 			case "ADD":
 				return [...state, action.payload]
 			case "UPDATE": {
-				break
+				const newState = [...state]
+				const index = newState.findIndex(todo => todo.id === action.payload.id)
+				newState.splice(index, 1, action.payload)
+				return newState
 			}
 			case "DELETE": {
 				break

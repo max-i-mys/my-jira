@@ -20,6 +20,7 @@ export default function AddTodo() {
 		if (!addedNewTodoError) {
 			dispatch({ type: "ADD", payload: addedNewTodo })
 		}
+		e.target.reset()
 	}
 	return (
 		<>

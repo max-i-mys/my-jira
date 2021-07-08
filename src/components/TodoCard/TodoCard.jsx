@@ -1,10 +1,32 @@
 import { Card } from "react-bootstrap"
+import { updateTodo } from "../../api/crud"
+import { useTodos } from "../../hooks/useTodos"
 import { formatterDate } from "../../utils/formatters"
 
 export default function TodoCard({ todo }) {
+	const [, dispatch] = useTodos()
+	async function setNewStatus(e) {
+		e.preventDefault()
+		const newStatus = todo.status < 4 ? todo.status + 1 : todo.status
+		if (newStatus !== todo.status) {
+			const [todoWithNewStatus, todoWithNewStatusErr] = await updateTodo(
+				todo.id,
+				{
+					status: newStatus,
+					updatedAt: Date.now(),
+				}
+			)
+			if (!todoWithNewStatusErr) {
+				dispatch({ type: "UPDATE", payload: todoWithNewStatus })
+			}
+		}
+	}
 	return (
 		<>
-			<Card style={{ width: "100%", cursor: "pointer" }}>
+			<Card
+				style={{ width: "100%", cursor: "pointer" }}
+				onContextMenu={setNewStatus}
+			>
 				<Card.Header className="d-flex justify-content-between pb-2 pt-2">
 					<Card.Title className="small m-0">
 						<Card.Text>Created:</Card.Text>{" "}

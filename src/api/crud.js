@@ -21,3 +21,6 @@ export async function getTodos() {
 export async function addTodo(data) {
 	return await crud.post("", data)
 }
+export async function updateTodo(id, data) {
+	return await crud.patch(`${id}`, data)
+}
