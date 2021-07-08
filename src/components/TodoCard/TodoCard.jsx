@@ -2,6 +2,7 @@ import { Card } from "react-bootstrap"
 import { updateTodo } from "../../api/crud"
 import { useTodos } from "../../hooks/useTodos"
 import { formatterDate } from "../../utils/formatters"
+import DeleteTodo from "../DeleteTodo/DeleteTodo"
 
 export default function TodoCard({ todo }) {
 	const [, dispatch] = useTodos()
@@ -25,9 +26,10 @@ export default function TodoCard({ todo }) {
 		<>
 			<Card
 				style={{ width: "100%", cursor: "pointer" }}
+				className={`${todo.status === 4 ? "text-decoration-line-through" : ""}`}
 				onContextMenu={setNewStatus}
 			>
-				<Card.Header className="d-flex justify-content-between pb-2 pt-2">
+				<Card.Header className={"d-flex justify-content-between pb-2 pt-2"}>
 					<Card.Title className="small m-0">
 						<Card.Text>Created:</Card.Text>{" "}
 						{formatterDate.format(todo.createdAt)}
@@ -43,6 +45,7 @@ export default function TodoCard({ todo }) {
 					<Card.Title>{todo.title}</Card.Title>
 					<Card.Text className="todo__body">{todo.body}</Card.Text>
 					<Card.Link href="#">Read more...</Card.Link>
+					<DeleteTodo todo={todo} />
 				</Card.Body>
 			</Card>
 		</>

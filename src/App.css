@@ -9,3 +9,6 @@
 	-webkit-box-orient: vertical;
 	min-height: 48px;
 }
+.text-decoration-line-through {
+	text-decoration: line-through;
+}

@@ -42,7 +42,7 @@ export default function AddTodo() {
 						onChange={e => setTodoBody(() => e.target.value)}
 					/>
 				</Form.Group>
-				<Button variant="primary" type="submit">
+				<Button variant="success" type="submit">
 					Add todo
 				</Button>
 			</Form>

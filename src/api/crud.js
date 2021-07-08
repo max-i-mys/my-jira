@@ -24,3 +24,6 @@ export async function addTodo(data) {
 export async function updateTodo(id, data) {
 	return await crud.patch(`${id}`, data)
 }
+export async function deleteTodo(id) {
+	return await crud.delete(`${id}`)
+}

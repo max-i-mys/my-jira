@@ -22,11 +22,18 @@ export default function TodosProvider({ children }) {
 			case "UPDATE": {
 				const newState = [...state]
 				const index = newState.findIndex(todo => todo.id === action.payload.id)
-				newState.splice(index, 1, action.payload)
+				if (index !== -1) {
+					newState.splice(index, 1, action.payload)
+				}
 				return newState
 			}
 			case "DELETE": {
-				break
+				const newState = [...state]
+				const index = newState.findIndex(todo => todo.id === action.payload)
+				if (index !== -1) {
+					newState.splice(index, 1)
+				}
+				return newState
 			}
 			default:
 				throw new Error(`Wrong action type: ${action.type}`)
