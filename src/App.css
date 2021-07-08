@@ -12,3 +12,6 @@
 .text-decoration-line-through {
 	text-decoration: line-through;
 }
+.todo__title {
+	margin-bottom: -12px;
+}
