@@ -5,7 +5,7 @@ export default function Header() {
 		<>
 			<ul className="nav nav-tabs nav-justified mb-5">
 				<li className="nav-item">
-					<NavLink className="nav-link" to="todos">
+					<NavLink className="nav-link" exact to="/">
 						Todos
 					</NavLink>
 				</li>

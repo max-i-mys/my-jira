@@ -12,7 +12,7 @@ function App() {
 			<Container className="p-3">
 				<Header />
 				<Switch>
-					<Route path="/todos">
+					<Route exact path="/">
 						<h1 className="text-center mb-4">It's your ToDo list!</h1>
 						<Row>
 							<Col lg={3} className="pl-1 pr-1">
@@ -47,6 +47,9 @@ function App() {
 					</Route>
 					<Route path="/add">
 						<AddTodo />
+					</Route>
+					<Route path="*/">
+						<h1 className="text-center mb-4">404! The page does not exist!</h1>
 					</Route>
 				</Switch>
 			</Container>
