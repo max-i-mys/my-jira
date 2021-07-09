@@ -10,7 +10,7 @@ export default function Header() {
 					</NavLink>
 				</li>
 				<li className="nav-item">
-					<NavLink className="nav-link" to="add">
+					<NavLink className="nav-link" to="/add">
 						Add
 					</NavLink>
 				</li>
