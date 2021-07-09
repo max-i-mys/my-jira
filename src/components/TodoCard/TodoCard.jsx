@@ -3,7 +3,7 @@ import { updateTodo } from "../../api/crud"
 import { useTodos } from "../../hooks/useTodos"
 import { formatterDate } from "../../utils/formatters"
 import DeleteTodo from "../DeleteTodo/DeleteTodo"
-import TodoPage from "../TodoPage/TodoPage"
+import TodoModal from "../TodoModal/TodoModal"
 
 export default function TodoCard({ todo }) {
 	const [, dispatch] = useTodos()
@@ -45,7 +45,7 @@ export default function TodoCard({ todo }) {
 				<Card.Body>
 					<Card.Title>{todo.title}</Card.Title>
 					<Card.Text className="todo__body">{todo.body}</Card.Text>
-					<TodoPage todo={todo} />
+					<TodoModal todo={todo} />
 					<DeleteTodo todo={todo} />
 				</Card.Body>
 			</Card>

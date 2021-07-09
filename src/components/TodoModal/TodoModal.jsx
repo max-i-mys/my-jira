@@ -1,22 +1,23 @@
 import { useState } from "react"
-import { Button, Card, Modal } from "react-bootstrap"
+import { Button, Card, Form, Modal } from "react-bootstrap"
 import { formatterDate } from "../../utils/formatters"
 
-export default function TodoPage({ todo }) {
-	const [show, setShow] = useState(false)
+export default function TodoModal({ todo }) {
+	const [showModal, setShowModal] = useState(false)
+	const [replaceModalBody, setReplaceModalBody] = useState(false)
 	function handleClose() {
-		setShow(false)
+		setShowModal(false)
 	}
 	function handleShow(e) {
 		e.preventDefault()
-		setShow(true)
+		setShowModal(true)
 	}
 	return (
 		<>
 			<Card.Link href="#" onClick={handleShow}>
 				Read more...
 			</Card.Link>
-			<Modal show={show} onHide={handleClose} animation={false}>
+			<Modal show={showModal} onHide={handleClose} animation={false}>
 				<Modal.Header closeButton>
 					<Modal.Title>{todo.title}</Modal.Title>
 					<div className="d-flex flex-column flex-grow-1 align-items-end mr-2">
@@ -30,14 +31,29 @@ export default function TodoPage({ todo }) {
 						)}
 					</div>
 				</Modal.Header>
-				<Modal.Body>{todo.body}</Modal.Body>
+				<Modal.Body>
+					{!replaceModalBody && todo.body}
+					{replaceModalBody && (
+						<Form className="mt-2">
+							<Form.Group className="mb-3">
+								<Form.Control as="textarea" rows={5}>
+									{todo.body}
+								</Form.Control>
+							</Form.Group>
+						</Form>
+					)}
+				</Modal.Body>
 				<Modal.Footer>
 					<Button variant="secondary" onClick={handleClose}>
 						Close
 					</Button>
 					{todo.status !== 4 && (
-						<Button variant="success" onClick={handleClose}>
-							Edit
+						<Button
+							variant="success"
+							onClick={() => setReplaceModalBody(() => !replaceModalBody)}
+						>
+							{!replaceModalBody && "Edit"}
+							{replaceModalBody && "Cancel"}
 						</Button>
 					)}
 					{todo.status !== 4 && (
