@@ -2,11 +2,13 @@ import { Button, Form } from "react-bootstrap"
 import React, { useState } from "react"
 import { useTodos } from "../../hooks/useTodos"
 import { addTodo } from "../../api/crud"
+import { useHistory } from "react-router-dom"
 
 export default function AddTodo() {
 	const [, dispatch] = useTodos()
 	const [todoTitle, setTodoTitle] = useState(null)
 	const [todoBody, setTodoBody] = useState(null)
+	const history = useHistory()
 	async function addNewTodo(e) {
 		e.preventDefault()
 		const newTodo = {
@@ -20,7 +22,7 @@ export default function AddTodo() {
 		if (!addedNewTodoError) {
 			dispatch({ type: "ADD", payload: addedNewTodo })
 		}
-		e.target.reset()
+		history.push("/")
 	}
 	return (
 		<>

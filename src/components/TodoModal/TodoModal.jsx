@@ -18,13 +18,15 @@ export default function TodoModal({ todo }) {
 		setShowModal(true)
 	}
 	async function setNewTextBody() {
-		const [updatedTodo, updatedTodoErr] = await updateTodo(todo.id, {
-			body: formTextBody,
-			updatedAt: Date.now(),
-		})
-		if (!updatedTodoErr) {
-			dispatch({ type: "UPDATE", payload: updatedTodo })
-			setReplaceModalBody(false)
+		if (formTextBody && replaceModalBody && formTextBody !== todo.body) {
+			const [updatedTodo, updatedTodoErr] = await updateTodo(todo.id, {
+				body: formTextBody,
+				updatedAt: Date.now(),
+			})
+			if (!updatedTodoErr) {
+				dispatch({ type: "UPDATE", payload: updatedTodo })
+				setReplaceModalBody(false)
+			}
 		}
 	}
 	return (
@@ -75,14 +77,7 @@ export default function TodoModal({ todo }) {
 						</Button>
 					)}
 					{todo.status !== 4 && (
-						<Button
-							variant="primary"
-							onClick={
-								formTextBody && replaceModalBody && formTextBody !== todo.body
-									? setNewTextBody
-									: false
-							}
-						>
+						<Button variant="primary" onClick={setNewTextBody}>
 							Save Changes
 						</Button>
 					)}

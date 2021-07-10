@@ -5,6 +5,7 @@ import { Col, Container, Row } from "react-bootstrap"
 import AddTodo from "./components/AddTodo/AddTodo"
 import Header from "./components/Header/Header"
 import { Route, Switch } from "react-router-dom"
+import Authentication from "./components/Authentication/Authentication"
 
 function App() {
 	return (
@@ -13,6 +14,9 @@ function App() {
 				<Header />
 				<Switch>
 					<Route exact path="/">
+						<Authentication />
+					</Route>
+					<Route exact path="/todos">
 						<h1 className="text-center mb-4">It's your ToDo list!</h1>
 						<Row>
 							<Col lg={3} className="pl-1 pr-1">
@@ -45,7 +49,7 @@ function App() {
 							</Col>
 						</Row>
 					</Route>
-					<Route path="/add">
+					<Route exact path="/add">
 						<AddTodo />
 					</Route>
 					<Route path="*/">
