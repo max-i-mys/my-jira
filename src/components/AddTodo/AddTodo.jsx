@@ -32,6 +32,7 @@ export default function AddTodo() {
 						type="text"
 						placeholder="Enter title"
 						onChange={e => setTodoTitle(() => e.target.value)}
+						required
 					/>
 				</Form.Group>
 				<Form.Group controlId="exampleForm.ControlTextarea1">
@@ -40,6 +41,7 @@ export default function AddTodo() {
 						as="textarea"
 						rows={3}
 						onChange={e => setTodoBody(() => e.target.value)}
+						required
 					/>
 				</Form.Group>
 				<Button variant="success" type="submit">

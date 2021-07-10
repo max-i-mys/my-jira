@@ -1,16 +1,31 @@
 import { useState } from "react"
 import { Button, Card, Form, Modal } from "react-bootstrap"
+import { updateTodo } from "../../api/crud"
+import { useTodos } from "../../hooks/useTodos"
 import { formatterDate } from "../../utils/formatters"
 
 export default function TodoModal({ todo }) {
 	const [showModal, setShowModal] = useState(false)
 	const [replaceModalBody, setReplaceModalBody] = useState(false)
+	const [formTextBody, setFormTextBody] = useState(null)
+	const [, dispatch] = useTodos()
 	function handleClose() {
 		setShowModal(false)
+		setReplaceModalBody(false)
 	}
 	function handleShow(e) {
 		e.preventDefault()
 		setShowModal(true)
+	}
+	async function setNewTextBody() {
+		const [updatedTodo, updatedTodoErr] = await updateTodo(todo.id, {
+			body: formTextBody,
+			updatedAt: Date.now(),
+		})
+		if (!updatedTodoErr) {
+			dispatch({ type: "UPDATE", payload: updatedTodo })
+			setReplaceModalBody(false)
+		}
 	}
 	return (
 		<>
@@ -36,9 +51,12 @@ export default function TodoModal({ todo }) {
 					{replaceModalBody && (
 						<Form className="mt-2">
 							<Form.Group className="mb-3">
-								<Form.Control as="textarea" rows={5}>
-									{todo.body}
-								</Form.Control>
+								<Form.Control
+									as="textarea"
+									rows={5}
+									onChange={e => setFormTextBody(e.target.value)}
+									defaultValue={todo.body}
+								/>
 							</Form.Group>
 						</Form>
 					)}
@@ -57,7 +75,14 @@ export default function TodoModal({ todo }) {
 						</Button>
 					)}
 					{todo.status !== 4 && (
-						<Button variant="primary" onClick={handleClose}>
+						<Button
+							variant="primary"
+							onClick={
+								formTextBody && replaceModalBody && formTextBody !== todo.body
+									? setNewTextBody
+									: false
+							}
+						>
 							Save Changes
 						</Button>
 					)}

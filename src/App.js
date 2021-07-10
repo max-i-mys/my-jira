@@ -17,28 +17,28 @@ function App() {
 						<Row>
 							<Col lg={3} className="pl-1 pr-1">
 								<div className="bg-success p-2 rounded">
-									<div className="d-flex flex-column align-items-center todo__column rounded">
+									<div className="d-flex flex-column align-items-center todo__column pb-2 rounded">
 										<TodosCard status={1} />
 									</div>
 								</div>
 							</Col>
 							<Col lg={3} className="pl-1 pr-1">
 								<div className="bg-info p-2 rounded">
-									<div className="d-flex flex-column align-items-center todo__column rounded">
+									<div className="d-flex flex-column align-items-center todo__column pb-2 rounded">
 										<TodosCard status={2} />
 									</div>
 								</div>
 							</Col>
 							<Col lg={3} className="pl-1 pr-1">
 								<div className="bg-primary p-2 rounded">
-									<div className="d-flex flex-column align-items-center todo__column rounded">
+									<div className="d-flex flex-column align-items-center todo__column pb-2 rounded">
 										<TodosCard status={3} />
 									</div>
 								</div>
 							</Col>
 							<Col lg={3} className="pl-1 pr-1">
 								<div className="bg-secondary p-2 rounded">
-									<div className="d-flex flex-column align-items-center todo__column rounded">
+									<div className="d-flex flex-column align-items-center todo__column pb-2 rounded">
 										<TodosCard status={4} />
 									</div>
 								</div>
