@@ -1,5 +1,5 @@
-import { initializeApp, getAuth } from "firebase/app"
-
+import { initializeApp } from "firebase/app"
+import { getAuth } from "firebase/auth"
 const firebaseConfig = {
 	apiKey: "AIzaSyB3rdjWRWalNjvMuDby7neupcTYGHWYhAY",
 	authDomain: "my-jira-e5e8d.firebaseapp.com",
@@ -9,5 +9,6 @@ const firebaseConfig = {
 	appId: "1:611464328251:web:54e27752f75284fcfe581e",
 }
 
-export const firebaseApp = initializeApp(firebaseConfig)
-export const auth = getAuth()
+const firebaseApp = initializeApp(firebaseConfig)
+const auth = getAuth()
+export { auth, firebaseApp }

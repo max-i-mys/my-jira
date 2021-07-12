@@ -6,7 +6,6 @@ import AddTodo from "./components/AddTodo/AddTodo"
 import Header from "./components/Header/Header"
 import { Route, Switch } from "react-router-dom"
 import Authentication from "./components/Authentication/Authentication"
-
 function App() {
 	return (
 		<div className="App">
