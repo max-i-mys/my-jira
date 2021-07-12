@@ -43,7 +43,7 @@ const AuthProvider = ({ children }) => {
 	}
 	function signOut() {
 		setLoading(true)
-		signOutUser()
+		signOutUser(auth)
 			.finally(() => setLoading(false))
 			.then(userCredential => {
 				setUser(null)
