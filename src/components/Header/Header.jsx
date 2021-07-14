@@ -8,7 +8,7 @@ export default function Header() {
 		<>
 			<ul className="nav nav-tabs nav-justified mb-5">
 				<li className="nav-item">
-					<NavLink className="nav-link" exact to="/todos">
+					<NavLink className="nav-link" exact to="/">
 						Todos
 					</NavLink>
 				</li>
@@ -20,7 +20,7 @@ export default function Header() {
 				{user && (
 					<li className="nav-item">
 						<NavLink
-							className="nav-link"
+							className="nav-link text-danger"
 							exact
 							to="/"
 							onClick={() => signOut()}
