@@ -2,7 +2,7 @@ import { useTodos } from "../../hooks/useTodos"
 import { getStatus } from "../../utils/functions"
 import TodoCard from "../TodoCard/TodoCard"
 
-export default function TodoCards(props) {
+export default function TodoList(props) {
 	const [todos] = useTodos()
 	const filteredTodos = todos.filter(todo => todo.status === props.status)
 	return (

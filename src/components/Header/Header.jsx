@@ -3,7 +3,6 @@ import useAuth from "../../hooks/useAuth"
 
 export default function Header() {
 	const { user, signOut } = useAuth()
-	console.log(user)
 	return (
 		<>
 			<ul className="nav nav-tabs nav-justified mb-5">
@@ -22,7 +21,7 @@ export default function Header() {
 						<NavLink
 							className="nav-link text-danger"
 							exact
-							to="/"
+							to="/auth"
 							onClick={() => signOut()}
 						>
 							Log out

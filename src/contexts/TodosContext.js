@@ -7,8 +7,10 @@ export const TodosContext = createContext()
 export default function TodosProvider({ children }) {
 	useEffect(() => {
 		;(async () => {
-			const [dataTodos] = await getTodos()
-			dispatchTodos({ type: "INITIAL", payload: dataTodos })
+			const [dataTodos, dataTodosErr] = await getTodos()
+			if (!dataTodosErr) {
+				dispatchTodos({ type: "INITIAL", payload: dataTodos })
+			}
 		})()
 	}, [])
 

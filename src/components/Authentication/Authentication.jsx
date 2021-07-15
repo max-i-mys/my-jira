@@ -1,11 +1,9 @@
 import { useState } from "react"
 import { Form, Button } from "react-bootstrap"
-import { useHistory } from "react-router-dom"
 import useAuth from "../../hooks/useAuth"
 
 export default function Authentication() {
-	const history = useHistory()
-	const { signUp, signIn, user } = useAuth()
+	const { signUp, signIn } = useAuth()
 	const [signType, setSignType] = useState("SignIn")
 	function sendSignReq(e) {
 		e.preventDefault()
@@ -40,6 +38,7 @@ export default function Authentication() {
 	}
 	return (
 		<>
+			{" "}
 			{signType === "SignIn" && (
 				<h1 className="text-center mb-4">Sign in to your account</h1>
 			)}

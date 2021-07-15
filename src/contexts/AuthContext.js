@@ -2,15 +2,18 @@ import {
 	signInWithEmailAndPassword,
 	createUserWithEmailAndPassword,
 	signOut as signOutUser,
+	onAuthStateChanged,
 } from "firebase/auth"
 import { useState, createContext, useEffect } from "react"
 import { auth } from "../firebase/firebaseApp"
+import { useRouter } from "../hooks/useRouter"
 
 export const AuthContext = createContext()
 const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(null)
 	const [error, setError] = useState(null)
 	const [loading, setLoading] = useState(false)
+	const router = useRouter()
 
 	useEffect(() => {
 		error && console.warn("Firebase auth error ->>", error.message)
@@ -28,6 +31,34 @@ const AuthProvider = ({ children }) => {
 				setUser(null)
 			})
 	}
+
+	useEffect(() => {
+		if (user) {
+			router.replace("/")
+		}
+		if (!user) {
+			router.replace("/auth")
+		}
+		//eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [user])
+
+	useEffect(() => {
+		if (!user && router.pathname !== "/auth") {
+			router.push("/auth")
+		}
+		//eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [router.pathname])
+
+	useEffect(() => {
+		onAuthStateChanged(auth, user => {
+			if (user) {
+				setUser(user)
+			} else {
+				setUser(null)
+			}
+		})
+	}, [])
+
 	function signIn(email, password) {
 		setLoading(true)
 		signInWithEmailAndPassword(auth, email, password)
