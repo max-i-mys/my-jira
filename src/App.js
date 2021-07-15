@@ -12,7 +12,11 @@ function App() {
 	const { user, loading } = useAuth()
 	return (
 		<>
-			{loading && <Spinner className="mt-3" animation="grow" />}
+			{loading && (
+				<div className="vertical-centered increase">
+					<Spinner animation="grow" />
+				</div>
+			)}
 			{!loading && (
 				<div className="App">
 					<Container className="p-3">

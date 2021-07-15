@@ -38,57 +38,59 @@ export default function Authentication() {
 	}
 	return (
 		<>
-			{" "}
-			{signType === "SignIn" && (
-				<h1 className="text-center mb-4">Sign in to your account</h1>
-			)}
-			{signType === "SignUp" && (
-				<h1 className="text-center mb-4">Register a new account</h1>
-			)}
-			<Form className="w-75 ml-auto mr-auto" onSubmit={sendSignReq}>
-				<Form.Group controlId="formBasicEmail">
-					<Form.Control
-						type="email"
-						name="email"
-						placeholder="Enter email"
-						required
-					/>
-					<Form.Text className="text-muted">
-						We'll never share your email with anyone else.
-					</Form.Text>
-				</Form.Group>
-				<Form.Group controlId="formBasicPassword">
-					<Form.Control
-						type="password"
-						name="password"
-						placeholder="Password"
-						required
-					/>
-				</Form.Group>
+			<div className="vertical-centered">
+				{" "}
+				{signType === "SignIn" && (
+					<h1 className="text-center mb-4">Sign in to your account</h1>
+				)}
 				{signType === "SignUp" && (
-					<Form.Group controlId="formRepeatPassword">
+					<h1 className="text-center mb-4">Register a new account</h1>
+				)}
+				<Form className="w-75 ml-auto mr-auto" onSubmit={sendSignReq}>
+					<Form.Group controlId="formBasicEmail">
+						<Form.Control
+							type="email"
+							name="email"
+							placeholder="Enter email"
+							required
+						/>
+						<Form.Text className="text-muted">
+							We'll never share your email with anyone else.
+						</Form.Text>
+					</Form.Group>
+					<Form.Group controlId="formBasicPassword">
 						<Form.Control
 							type="password"
-							name="repeatPassword"
-							placeholder="Password(repeat)"
+							name="password"
+							placeholder="Password"
 							required
 						/>
 					</Form.Group>
-				)}
-				<Button variant="primary" type="submit">
-					{signType === "SignIn" && "Login"}
-					{signType === "SignUp" && "Register"}
-				</Button>{" "}
-				<div>
-					<button
-						className="border-0 bg-white small text-primary"
-						onClick={changeSignType}
-					>
-						{signType === "SignIn" && "Register"}
-						{signType === "SignUp" && "I have an account"}
-					</button>
-				</div>
-			</Form>
+					{signType === "SignUp" && (
+						<Form.Group controlId="formRepeatPassword">
+							<Form.Control
+								type="password"
+								name="repeatPassword"
+								placeholder="Password(repeat)"
+								required
+							/>
+						</Form.Group>
+					)}
+					<Button variant="primary" type="submit">
+						{signType === "SignIn" && "Login"}
+						{signType === "SignUp" && "Register"}
+					</Button>{" "}
+					<div>
+						<button
+							className="border-0 bg-white small text-primary"
+							onClick={changeSignType}
+						>
+							{signType === "SignIn" && "Register"}
+							{signType === "SignUp" && "I have an account"}
+						</button>
+					</div>
+				</Form>
+			</div>
 		</>
 	)
 }
