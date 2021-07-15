@@ -51,6 +51,7 @@ const AuthProvider = ({ children }) => {
 
 	useEffect(() => {
 		onAuthStateChanged(auth, user => {
+			setLoading(false)
 			if (user) {
 				setUser(user)
 			} else {

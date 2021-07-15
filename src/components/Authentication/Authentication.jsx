@@ -45,7 +45,7 @@ export default function Authentication() {
 			{signType === "SignUp" && (
 				<h1 className="text-center mb-4">Register a new account</h1>
 			)}
-			<Form className="w-25 ml-auto mr-auto" onSubmit={sendSignReq}>
+			<Form className="w-75 ml-auto mr-auto" onSubmit={sendSignReq}>
 				<Form.Group controlId="formBasicEmail">
 					<Form.Control
 						type="email"
