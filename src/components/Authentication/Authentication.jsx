@@ -47,16 +47,13 @@ export default function Authentication() {
 			return
 		}
 	}
+
 	useEffect(() => {
 		if (signType === "SignIn") {
 			setShowAlertError(error)
+			refreshAlertTimer = setInterval(() => setShowAlertError(false), 5000)
 		}
-		return () => {
-			;(async () => {
-				clearTimeout(refreshAlertTimer)
-				refreshAlertTimer = setInterval(() => setShowAlertError(false), 5000)
-			})()
-		}
+		return () => clearTimeout(refreshAlertTimer)
 	}, [error])
 	return (
 		<>
