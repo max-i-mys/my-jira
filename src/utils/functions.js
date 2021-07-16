@@ -10,3 +10,16 @@ export function getStatus(status) {
 			return "Done"
 	}
 }
+export function getErrorMessage(message) {
+	switch (message) {
+		case "Firebase: Error (auth/wrong-password).":
+		case "Firebase: Error (auth/user-not-found).":
+			return "wrongAuth"
+		case "Firebase: Error (auth/email-already-in-use).":
+			return "usedEmail"
+		case "Firebase: Error (auth/weak-password).":
+			return "weakPassword"
+		default:
+			return null
+	}
+}

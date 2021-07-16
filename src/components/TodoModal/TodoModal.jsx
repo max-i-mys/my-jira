@@ -35,7 +35,7 @@ export default function TodoModal({ todo }) {
 				Read more...
 			</Card.Link>
 			<Modal show={showModal} onHide={handleClose} animation={false}>
-				<Modal.Header closeButton>
+				<Modal.Header>
 					<Modal.Title>{todo.title}</Modal.Title>
 					<div className="d-flex flex-column flex-grow-1 align-items-end mr-2">
 						<span className="small">

@@ -1,10 +1,21 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Form, Button } from "react-bootstrap"
 import useAuth from "../../hooks/useAuth"
+import { getErrorMessage } from "../../utils/functions"
+import AlertError from "../AlertError/AlertError"
 
 export default function Authentication() {
-	const { signUp, signIn } = useAuth()
+	const { signUp, signIn, error } = useAuth()
 	const [signType, setSignType] = useState("SignIn")
+	const [showAlertError, setShowAlertError] = useState(false)
+	const [errorMessage, setErrorMessage] = useState(null)
+
+	useEffect(() => {
+		if (error) {
+			setErrorMessage(() => getErrorMessage(error.message))
+		}
+	}, [error])
+	let refreshAlertTimer = null
 	function sendSignReq(e) {
 		e.preventDefault()
 		const { email, password, repeatPassword } = e.target
@@ -36,8 +47,45 @@ export default function Authentication() {
 			return
 		}
 	}
+	useEffect(() => {
+		if (signType === "SignIn") {
+			setShowAlertError(error)
+		}
+		return () => {
+			;(async () => {
+				clearTimeout(refreshAlertTimer)
+				refreshAlertTimer = setInterval(() => setShowAlertError(false), 5000)
+			})()
+		}
+	}, [error])
 	return (
 		<>
+			{showAlertError && (
+				<>
+					{errorMessage === "wrongAuth" && (
+						<AlertError type="danger">
+							<h4>Access is denied!</h4>
+							<p>Incorrect email or password.</p>
+						</AlertError>
+					)}
+
+					{errorMessage === "usedEmail" && (
+						<AlertError type="warning">
+							<h4>You cannot use this email.</h4>
+							<p>Try another!</p>
+						</AlertError>
+					)}
+					{errorMessage === "weakPassword" && (
+						<AlertError type="warning">
+							<h4>This password is very weak!</h4>
+							<p>
+								Your password must be at least six characters long. Try using
+								numbers and letters.
+							</p>
+						</AlertError>
+					)}
+				</>
+			)}
 			<div className="vertical-centered">
 				{" "}
 				{signType === "SignIn" && (

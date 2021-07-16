@@ -28,7 +28,7 @@ export default function AddTodo() {
 		<>
 			<h1 className="text-center mb-4">You can add your todos here!</h1>
 			<Form className="w-50 ml-auto mr-auto" onSubmit={addNewTodo}>
-				<Form.Group controlId="inlineFormInputTitle">
+				<Form.Group>
 					<Form.Label>Todo's title</Form.Label>
 					<Form.Control
 						type="text"
@@ -37,11 +37,11 @@ export default function AddTodo() {
 						required
 					/>
 				</Form.Group>
-				<Form.Group controlId="exampleForm.ControlTextarea1">
+				<Form.Group>
 					<Form.Label>Todo's body</Form.Label>
 					<Form.Control
 						as="textarea"
-						rows={3}
+						rows={5}
 						onChange={e => setTodoBody(() => e.target.value)}
 						required
 					/>
