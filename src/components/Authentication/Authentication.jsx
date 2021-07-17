@@ -9,7 +9,11 @@ export default function Authentication() {
 	const [signType, setSignType] = useState("SignIn")
 	const [showAlertError, setShowAlertError] = useState(false)
 	const [errorMessage, setErrorMessage] = useState(null)
-
+	const [valuePasswordRepeat, setValuePasswordRepeat] = useState(null)
+	const [valuePassword, setValuePassword] = useState(null)
+	const [valueEmail, setValueEmail] = useState(null)
+	const [visibleWrongPasswordRepeat, setVisibleWrongPasswordRepeat] =
+		useState(true)
 	useEffect(() => {
 		if (error) {
 			setErrorMessage(() => getErrorMessage(error.message))
@@ -18,19 +22,18 @@ export default function Authentication() {
 	let refreshAlertTimer = null
 	function sendSignReq(e) {
 		e.preventDefault()
-		const { email, password, repeatPassword } = e.target
-		if (email.value.trim()) {
-			if (signType === "SignIn" && password.value.trim()) {
-				signIn(email.value.trim(), password.value.trim())
+		if (valueEmail.trim()) {
+			if (signType === "SignIn" && valuePassword.trim()) {
+				signIn(valueEmail.trim(), valuePassword.trim())
 				e.target.reset()
 				return
 			}
 			if (
 				signType === "SignUp" &&
-				password.value.trim() &&
-				password.value.trim() === repeatPassword.value.trim()
+				valuePassword.trim() &&
+				valuePassword.trim() === valuePasswordRepeat.trim()
 			) {
-				signUp(email.value.trim(), password.value.trim())
+				signUp(valueEmail.trim(), valuePassword.trim())
 				e.target.reset()
 				return
 			}
@@ -47,7 +50,6 @@ export default function Authentication() {
 			return
 		}
 	}
-
 	useEffect(() => {
 		if (signType === "SignIn") {
 			setShowAlertError(error)
@@ -55,6 +57,15 @@ export default function Authentication() {
 		}
 		return () => clearTimeout(refreshAlertTimer)
 	}, [error])
+	useEffect(() => {
+		if (valuePassword && valuePasswordRepeat) {
+			if (valuePassword.trim() === valuePasswordRepeat.trim()) {
+				setVisibleWrongPasswordRepeat(false)
+				return
+			}
+			setVisibleWrongPasswordRepeat(true)
+		}
+	}, [valuePasswordRepeat])
 	return (
 		<>
 			{showAlertError && (
@@ -97,6 +108,7 @@ export default function Authentication() {
 							type="email"
 							name="email"
 							placeholder="Enter email"
+							onChange={e => setValueEmail(() => e.target.value)}
 							required
 						/>
 						<Form.Text className="text-muted">
@@ -107,7 +119,8 @@ export default function Authentication() {
 						<Form.Control
 							type="password"
 							name="password"
-							placeholder="Password"
+							placeholder="Password (minimum 6 characters)"
+							onChange={e => setValuePassword(() => e.target.value)}
 							required
 						/>
 					</Form.Group>
@@ -117,6 +130,10 @@ export default function Authentication() {
 								type="password"
 								name="repeatPassword"
 								placeholder="Password(repeat)"
+								className={
+									visibleWrongPasswordRepeat ? "wrong-repeat-password" : ""
+								}
+								onChange={e => setValuePasswordRepeat(() => e.target.value)}
 								required
 							/>
 						</Form.Group>
