@@ -20,6 +20,6 @@ export function getErrorMessage(message) {
 		case "Firebase: Error (auth/weak-password).":
 			return "weakPassword"
 		default:
-			return null
+			return "authError"
 	}
 }

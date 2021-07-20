@@ -13,8 +13,7 @@ export default function TodoModal({ todo }) {
 		setShowModal(false)
 		setReplaceModalBody(false)
 	}
-	function handleShow(e) {
-		e.preventDefault()
+	function handleShow() {
 		setShowModal(true)
 	}
 	async function setNewTextBody() {
@@ -31,9 +30,13 @@ export default function TodoModal({ todo }) {
 	}
 	return (
 		<>
-			<Card.Link href="#" onClick={handleShow}>
+			<button
+				type="button"
+				className="border-0 bg-white p-0 btn-link"
+				onClick={handleShow}
+			>
 				Read more...
-			</Card.Link>
+			</button>
 			<Modal show={showModal} onHide={handleClose} animation={false}>
 				<Modal.Header>
 					<Modal.Title>{todo.title}</Modal.Title>

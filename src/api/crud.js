@@ -15,15 +15,18 @@ crud.interceptors.response.use(
 	}
 )
 
-export async function getTodos() {
-	return await crud.get()
+export async function createUser(data) {
+	return await crud.post("/users", data)
+}
+export async function getTodos(uid) {
+	return await crud.get(`/todos?userId=${uid}`)
 }
 export async function addTodo(data) {
-	return await crud.post("", data)
+	return await crud.post("/todos", data)
 }
 export async function updateTodo(id, data) {
-	return await crud.patch(`${id}`, data)
+	return await crud.patch(`/todos/${id}`, data)
 }
 export async function deleteTodo(id) {
-	return await crud.delete(`${id}`)
+	return await crud.delete(`/todos/${id}`)
 }

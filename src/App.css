@@ -1,3 +1,17 @@
+.loader{
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #fff;
+	z-index: 999999;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+	user-select: none;
+	pointer-events: none;
+}
 .todo__column {
 	gap: 20px;
 }

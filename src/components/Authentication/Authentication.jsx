@@ -14,18 +14,12 @@ export default function Authentication() {
 	const [valueEmail, setValueEmail] = useState(null)
 	const [visibleWrongPasswordRepeat, setVisibleWrongPasswordRepeat] =
 		useState(true)
-	useEffect(() => {
-		if (error) {
-			setErrorMessage(() => getErrorMessage(error.message))
-		}
-	}, [error])
-	let refreshAlertTimer = null
+
 	function sendSignReq(e) {
 		e.preventDefault()
 		if (valueEmail.trim()) {
 			if (signType === "SignIn" && valuePassword.trim()) {
 				signIn(valueEmail.trim(), valuePassword.trim())
-				e.target.reset()
 				return
 			}
 			if (
@@ -34,13 +28,11 @@ export default function Authentication() {
 				valuePassword.trim() === valuePasswordRepeat.trim()
 			) {
 				signUp(valueEmail.trim(), valuePassword.trim())
-				e.target.reset()
 				return
 			}
 		}
 	}
-	function changeSignType(e) {
-		e.preventDefault()
+	function changeSignType() {
 		if (signType === "SignIn") {
 			setSignType("SignUp")
 			return
@@ -51,11 +43,15 @@ export default function Authentication() {
 		}
 	}
 	useEffect(() => {
-		if (signType === "SignIn") {
+		let refreshAlertTimer = null
+		if (error) {
+			setErrorMessage(() => getErrorMessage(error.message))
 			setShowAlertError(error)
-			refreshAlertTimer = setInterval(() => setShowAlertError(false), 5000)
+			console.log("ERROR!!!!->>>>", error, errorMessage)
+			refreshAlertTimer = setTimeout(() => setShowAlertError(false), 5000)
 		}
 		return () => clearTimeout(refreshAlertTimer)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [error])
 	useEffect(() => {
 		if (valuePassword && valuePasswordRepeat) {
@@ -65,6 +61,7 @@ export default function Authentication() {
 			}
 			setVisibleWrongPasswordRepeat(true)
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [valuePasswordRepeat])
 	return (
 		<>
@@ -76,7 +73,6 @@ export default function Authentication() {
 							<p>Incorrect email or password.</p>
 						</AlertError>
 					)}
-
 					{errorMessage === "usedEmail" && (
 						<AlertError type="warning">
 							<h4>You cannot use this email.</h4>
@@ -89,6 +85,15 @@ export default function Authentication() {
 							<p>
 								Your password must be at least six characters long. Try using
 								numbers and letters.
+							</p>
+						</AlertError>
+					)}
+					{errorMessage === "authError" && (
+						<AlertError type="warning">
+							<h4>General auth error!</h4>
+							<p>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit.
+								Tenetur, reiciendis!
 							</p>
 						</AlertError>
 					)}
@@ -145,6 +150,7 @@ export default function Authentication() {
 					<div>
 						<button
 							className="border-0 bg-white small text-primary"
+							type="button"
 							onClick={changeSignType}
 						>
 							{signType === "SignIn" && "Register"}
