@@ -7,13 +7,10 @@ import Header from "./components/Header/Header"
 import { Route, Switch } from "react-router-dom"
 import Authentication from "./components/Authentication/Authentication"
 import useAuth from "./hooks/useAuth"
-import { useEffect } from 'react';
+import Greeting from "./components/Greeting/Greeting"
 
 function App() {
-	const { user, loading, error } = useAuth()
-	useEffect(() => {
-		console.log(loading);
-	}, [loading])
+	const { user, loading } = useAuth()
 	return (
 		<>
 			{loading && (
@@ -30,6 +27,7 @@ function App() {
 						</Route>
 						<Route exact path="/">
 							<h1 className="text-center mb-4">It's your ToDo list!</h1>
+							<Greeting />
 							<Row>
 								<Col lg={3} className="pl-1 pr-1">
 									<div className="bg-success p-2 rounded">

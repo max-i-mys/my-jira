@@ -1,6 +1,6 @@
+import { Nav } from "react-bootstrap"
 import { NavLink } from "react-router-dom"
 import useAuth from "../../hooks/useAuth"
-
 export default function Header() {
 	const { user, signOut } = useAuth()
 	return (
@@ -18,14 +18,13 @@ export default function Header() {
 				</li>
 				{user && (
 					<li className="nav-item">
-						<NavLink
+						<Nav.Link
 							className="nav-link text-danger"
-							exact
-							to="/auth"
+							href="/auth"
 							onClick={() => signOut()}
 						>
 							Log out
-						</NavLink>
+						</Nav.Link>
 					</li>
 				)}
 			</ul>

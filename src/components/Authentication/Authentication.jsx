@@ -2,10 +2,10 @@ import { useState, useEffect } from "react"
 import { Form, Button } from "react-bootstrap"
 import useAuth from "../../hooks/useAuth"
 import { getErrorMessage } from "../../utils/functions"
-import AlertError from "../AlertError/AlertError"
+import AlertError from "../AlertMessage/AlertMessage"
 
 export default function Authentication() {
-	const { signUp, signIn, error } = useAuth()
+	const { signUp, signIn, error, setUserName, setUserSurname } = useAuth()
 	const [signType, setSignType] = useState("SignIn")
 	const [showAlertError, setShowAlertError] = useState(false)
 	const [errorMessage, setErrorMessage] = useState(null)
@@ -15,6 +15,27 @@ export default function Authentication() {
 	const [visibleWrongPasswordRepeat, setVisibleWrongPasswordRepeat] =
 		useState(true)
 
+	useEffect(() => {
+		let refreshAlertTimer = null
+		if (error) {
+			setErrorMessage(() => getErrorMessage(error.message))
+			setShowAlertError(error)
+			console.log("ERROR!!!!->>>>", error, errorMessage)
+			refreshAlertTimer = setTimeout(() => setShowAlertError(false), 5000)
+		}
+		return () => clearTimeout(refreshAlertTimer)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [error])
+	useEffect(() => {
+		if (valuePassword && valuePasswordRepeat) {
+			if (valuePassword.trim() === valuePasswordRepeat.trim()) {
+				setVisibleWrongPasswordRepeat(false)
+				return
+			}
+			setVisibleWrongPasswordRepeat(true)
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [valuePasswordRepeat])
 	function sendSignReq(e) {
 		e.preventDefault()
 		if (valueEmail.trim()) {
@@ -42,27 +63,6 @@ export default function Authentication() {
 			return
 		}
 	}
-	useEffect(() => {
-		let refreshAlertTimer = null
-		if (error) {
-			setErrorMessage(() => getErrorMessage(error.message))
-			setShowAlertError(error)
-			console.log("ERROR!!!!->>>>", error, errorMessage)
-			refreshAlertTimer = setTimeout(() => setShowAlertError(false), 5000)
-		}
-		return () => clearTimeout(refreshAlertTimer)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [error])
-	useEffect(() => {
-		if (valuePassword && valuePasswordRepeat) {
-			if (valuePassword.trim() === valuePasswordRepeat.trim()) {
-				setVisibleWrongPasswordRepeat(false)
-				return
-			}
-			setVisibleWrongPasswordRepeat(true)
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [valuePasswordRepeat])
 	return (
 		<>
 			{showAlertError && (
@@ -90,11 +90,8 @@ export default function Authentication() {
 					)}
 					{errorMessage === "authError" && (
 						<AlertError type="warning">
-							<h4>General auth error!</h4>
-							<p>
-								Lorem ipsum dolor sit amet consectetur adipisicing elit.
-								Tenetur, reiciendis!
-							</p>
+							<h4>Error!</h4>
+							<p>Check the correctness of the entered data!</p>
 						</AlertError>
 					)}
 				</>
@@ -120,6 +117,26 @@ export default function Authentication() {
 							We'll never share your email with anyone else.
 						</Form.Text>
 					</Form.Group>
+					{signType === "SignUp" && (
+						<Form.Group controlId="formBasicName">
+							<Form.Control
+								type="text"
+								placeholder="Enter your name"
+								onChange={e => setUserName(() => e.target.value)}
+								required
+							/>
+						</Form.Group>
+					)}
+					{signType === "SignUp" && (
+						<Form.Group controlId="formBasicSurname">
+							<Form.Control
+								type="text"
+								placeholder="Enter your surname"
+								onChange={e => setUserSurname(() => e.target.value)}
+								required
+							/>
+						</Form.Group>
+					)}
 					<Form.Group controlId="formBasicPassword">
 						<Form.Control
 							type="password"

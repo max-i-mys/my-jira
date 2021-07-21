@@ -3,10 +3,10 @@ import React, { useState } from "react"
 import { useTodos } from "../../hooks/useTodos"
 import { addTodo } from "../../api/crud"
 import { useHistory } from "react-router-dom"
-import useAuth from './../../hooks/useAuth';
+import useAuth from "./../../hooks/useAuth"
 
 export default function AddTodo() {
-	const {user} = useAuth()
+	const { user } = useAuth()
 	const [, dispatch] = useTodos()
 	const [todoTitle, setTodoTitle] = useState(null)
 	const [todoBody, setTodoBody] = useState(null)
@@ -19,7 +19,7 @@ export default function AddTodo() {
 			createdAt: Date.now(),
 			updatedAt: null,
 			status: 1,
-			userId: user.uid
+			userId: user.uid,
 		}
 		const [addedNewTodo, addedNewTodoError] = await addTodo(newTodo)
 		if (!addedNewTodoError) {

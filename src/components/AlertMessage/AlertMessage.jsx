@@ -1,6 +1,6 @@
 import { Alert } from "react-bootstrap"
 
-export default function AlertError(props) {
+export default function AlertMessage(props) {
 	return (
 		<>
 			<Alert variant={props.type}>

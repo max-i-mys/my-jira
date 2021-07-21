@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Button, Card, Form, Modal } from "react-bootstrap"
+import { Button, Form, Modal } from "react-bootstrap"
 import { updateTodo } from "../../api/crud"
 import { useTodos } from "../../hooks/useTodos"
 import { formatterDate } from "../../utils/formatters"

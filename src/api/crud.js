@@ -18,6 +18,9 @@ crud.interceptors.response.use(
 export async function createUser(data) {
 	return await crud.post("/users", data)
 }
+export async function getUserData(uid) {
+	return await crud.get(`/users?id=${uid}`)
+}
 export async function getTodos(uid) {
 	return await crud.get(`/todos?userId=${uid}`)
 }

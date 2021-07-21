@@ -14,15 +14,11 @@ const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(null)
 	const [userData, setUserData] = useState(null)
 	const [error, setError] = useState(null)
+	const [userName, setUserName] = useState(null)
+	const [userSurname, setUserSurname] = useState(null)
 	const [loading, setLoading] = useState(true)
 	const router = useRouter()
 
-	useEffect(() => {
-		error && console.warn("Firebase auth error ->>", error.message)
-	}, [error])
-	useEffect(() => {
-		console.warn("loading", loading)
-	}, [loading])
 	useEffect(() => {
 		if (user) {
 			router.replace("/")
@@ -64,7 +60,11 @@ const AuthProvider = ({ children }) => {
 			.then(userCredential => {
 				setUser(userCredential.user)
 				setError(null)
-				return createUser({ id: userCredential.user.uid })
+				return createUser({
+					id: userCredential.user.uid,
+					name: userName,
+					surname: userSurname,
+				})
 			})
 			.then(([userData, userDataError]) => {
 				if (!userDataError) {
@@ -108,7 +108,17 @@ const AuthProvider = ({ children }) => {
 	}
 	return (
 		<AuthContext.Provider
-			value={{ user, error, userData, loading, signUp, signIn, signOut }}
+			value={{
+				user,
+				error,
+				userData,
+				loading,
+				signUp,
+				signIn,
+				signOut,
+				setUserName,
+				setUserSurname,
+			}}
 		>
 			{children}
 		</AuthContext.Provider>

@@ -1,7 +1,7 @@
 import { createContext } from "react"
 import React, { useReducer, useEffect, useState } from "react"
 import { getTodos } from "../api/crud"
-import useAuth from './../hooks/useAuth';
+import useAuth from "./../hooks/useAuth"
 
 const initialState = []
 export const TodosContext = createContext()
@@ -9,15 +9,20 @@ export default function TodosProvider({ children }) {
 	const { user } = useAuth()
 	const [loaded, setLoaded] = useState(false)
 	useEffect(() => {
+		console.log(user?.uid)
 		if (!loaded && user?.uid) {
-			; (async () => {
+			;(async function () {
 				const [dataTodos, dataTodosErr] = await getTodos(user.uid)
 				if (!dataTodosErr) {
 					dispatchTodos({ type: "INITIAL", payload: dataTodos })
 					setLoaded(true)
+					console.log("This code is done!")
+					console.log(loaded)
 				}
 			})()
 		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user])
 
 	const [todos, dispatchTodos] = useReducer(reducer, initialState)
