@@ -14,8 +14,8 @@ export default function Greeting() {
 				const [userData, userDataErr] = await getUserData(user.uid)
 				if (!userDataErr) {
 					const userObject = userData[0]
-					setUserName(userObject.name)
-					setUserSurname(userObject.surname)
+					setUserName(userObject?.name)
+					setUserSurname(userObject?.surname)
 				}
 			}
 		})()
@@ -36,9 +36,13 @@ export default function Greeting() {
 			{showAlertMessage && (
 				<AlertMessage type="success" dismissible>
 					<h4>
-						Hello {userName} {userSurname}!
+						{userName && `Hello ${userName} ${userSurname}!`}
+						{!userName && "Congratulations!"}
 					</h4>
-					<p>You have successfully entered the site</p>
+					<p>
+						{userName && "You have successfully entered the site"}
+						{!userName && "You have successfully registered on the site"}
+					</p>
 				</AlertMessage>
 			)}
 		</>
