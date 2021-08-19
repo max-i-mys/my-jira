@@ -163,7 +163,7 @@ export default function Authentication() {
 					<Button variant="primary" type="submit">
 						{signType === "SignIn" && "Login"}
 						{signType === "SignUp" && "Register"}
-					</Button>{" "}
+					</Button>
 					<div>
 						<button
 							className="border-0 bg-white small text-primary"

@@ -9,15 +9,12 @@ export default function TodosProvider({ children }) {
 	const { user } = useAuth()
 	const [loaded, setLoaded] = useState(false)
 	useEffect(() => {
-		console.log(user?.uid)
 		if (!loaded && user?.uid) {
 			;(async function () {
 				const [dataTodos, dataTodosErr] = await getTodos(user.uid)
 				if (!dataTodosErr) {
 					dispatchTodos({ type: "INITIAL", payload: dataTodos })
 					setLoaded(true)
-					console.log("This code is done!")
-					console.log(loaded)
 				}
 			})()
 		}

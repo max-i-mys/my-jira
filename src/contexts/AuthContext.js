@@ -5,7 +5,7 @@ import {
 	onAuthStateChanged,
 } from "firebase/auth"
 import { useState, createContext, useEffect } from "react"
-import { createUser } from "../api/crud"
+import { createUser, updateUserData } from "../api/crud"
 import { auth } from "../firebase/firebaseApp"
 import { useRouter } from "../hooks/useRouter"
 
@@ -64,6 +64,7 @@ const AuthProvider = ({ children }) => {
 					id: userCredential.user.uid,
 					name: userName,
 					surname: userSurname,
+					status: "online"
 				})
 			})
 			.then(([userData, userDataError]) => {
@@ -95,6 +96,9 @@ const AuthProvider = ({ children }) => {
 			})
 	}
 	function signOut() {
+		updateUserData(user.uid, {
+			status: "offline",
+		})
 		setLoading(true)
 		signOutUser(auth)
 			.finally(() => setLoading(false))

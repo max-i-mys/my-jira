@@ -21,6 +21,9 @@ export async function createUser(data) {
 export async function getUserData(uid) {
 	return await crud.get(`/users?id=${uid}`)
 }
+export async function updateUserData(uid, data) {
+	return await crud.patch(`/users/${uid}`, data)
+}
 export async function getTodos(uid) {
 	return await crud.get(`/todos?userId=${uid}`)
 }
